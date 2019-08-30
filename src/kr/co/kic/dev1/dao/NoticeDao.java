@@ -98,7 +98,7 @@ public class NoticeDao {
 		return isSuccess;
 	}
 	
-	public boolean delete(NoticeDto n) {
+	public boolean delete(int num) {
 		boolean isSuccess = false;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -109,13 +109,13 @@ public class NoticeDao {
 			StringBuffer sql = new StringBuffer();
 			//sql문 작성
 			sql.append("DELETE FROM notice ");
-			sql.append("WHERE n_num = 1;");
+			sql.append("WHERE n_num = ?;");
 			
 			
 			
 			pstmt = con.prepareStatement(sql.toString());
 			//바인딩 변수설정			
-			pstmt.setInt(index++, n.getNum());
+			pstmt.setInt(index++, num);
 			
 			pstmt.executeQuery();			
 			isSuccess = true;

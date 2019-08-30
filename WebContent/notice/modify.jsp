@@ -4,19 +4,21 @@
 <%
 	request.setCharacterEncoding("utf-8");
 
+	int num = Integer.parseInt(request.getParameter("num"));
 	String writer = request.getParameter("writer");
 	String title = request.getParameter("title");
 	String content = request.getParameter("content");
 
 	NoticeDao dao = NoticeDao.getInstance();
 	NoticeDto dto = new NoticeDto(writer, title, content);
-	boolean isSuccess = dao.insert(dto);
+	dto.setNum(num);	
+	boolean isSuccess = dao.update(dto);
 	if(isSuccess){
 %>
 
 	<script>
 		alert("성공");
-		location.href="list.jsp";
+		location.href="view.jsp?num=<%=num%>";
 	</script>
 	<%}else{%>
 	<script>

@@ -34,7 +34,7 @@
 					<div class="card-body">
 						<h5 class="card-title">공지사항</h5>
 
-						<form class="form-horizontal" role="form">
+						<form class="form-horizontal" role="form" name="f" method="post" action="">
 							<div class="form-group row">
 								<label class="col-form-label col-sm-2" for="writer">작성자</label>
 								<div class="col-sm-10">
@@ -53,22 +53,50 @@
 									<textarea class="form-control" name="content" id="content" rows="10" placeholder="내용을 입력해 주세요"><%=content%></textarea>
 								</div>
 							</div>
-
-							<div class="form-group text-center">
-								<button type="submit" id="join-submit" class="btn btn-primary">
-									회원가입<i class="fa fa-check spaceLeft"></i>
-								</button>
-								<button type="submit" class="btn btn-warning">
-									가입취소<i class="fa fa-times spaceLeft"></i>
-								</button>
-							</div>
+							<input type="hidden" name="num" value="<%=num%>"/>
 						</form>
 
 						<div class="text-right">
-							<a href="#" class="btn btn-outline-primary">등록</a>
-							<a href="#" class="btn btn-outline-success">리스트</a>
+							<a href="" class="btn btn-outline-primary" id=modifyNotice>수정</a>
+							<a href="" class="btn btn-outline-danger" id=deleteNotice>삭제</a>
+							<a href="list.jsp" class="btn btn-outline-success">리스트</a>
 						</div>
+						<script>
+							$(function(){
+								$("#modifyNotice").on('click',function(event){
+									event.preventDefault();
+									//유효성검사				
+									let writer = $("#writer").val();
+									let title = $("#title").val();
+									let content = $("#content").val();
 
+									if(writer==""){
+										alert("작성자를 입력해주세요..");
+										$("#writer").focus();
+										return;
+									}								
+									if(title==""){
+										alert("제목을 입력해주세요..");
+										$("#title").focus();
+										return;
+									}								
+									if(content==""){
+										alert("내용을 입력해주세요..");
+										$("#content").focus();
+										return;
+									}
+									f.action ="modify.jsp";
+									f.submit();
+								});
+								$("#deleteNotice").on('click',function(event){
+									event.preventDefault();
+									//유효성검사 필요없음
+									f.action ="delete.jsp";
+									f.submit();
+								});
+							});					
+						
+						</script>
 					</div>
 				</div>
 			</div>
