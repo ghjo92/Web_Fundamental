@@ -213,7 +213,6 @@ public class NoticeDao {
 				String title = rs.getString(index++);
 				String regdate = rs.getString(index++);
 				list.add(new NoticeDto(num, writer, title, regdate));
-				
 			}
 			
 			

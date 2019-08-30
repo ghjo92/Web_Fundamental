@@ -18,8 +18,11 @@ public class NoticeDto {
 	}
 	
 	public NoticeDto(int num, String writer, String title, String regdate) {
-		// TODO Auto-generated constructor stub
 		this(num,writer,title,null,regdate);
+	}
+	
+	public NoticeDto(String writer, String title, String content) {
+		this(0,writer,title,content,null);
 	}
 
 	public int getNum() {

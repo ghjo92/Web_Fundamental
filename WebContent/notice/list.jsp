@@ -49,7 +49,7 @@
 									<tr>
 										<th scope="row"><%=num %></th>
 										<td><%=writer %></td>
-										<td><a href="view.jsp"><%=title %></a> </td>
+										<td><a href="view.jsp?num=<%=num %>"><%=title %></a> </td>
 										<td><%=regdate %></td>
 									</tr>
 								<%
@@ -88,7 +88,7 @@
 							</nav>
 
 							<div class="text-right">
-								<a href="#" class="btn btn-outline-primary">등록</a>
+								<a href="write.jsp" class="btn btn-outline-primary">등록</a>
 								<a href="#" class="btn btn-outline-success">리스트</a>
 							</div>
 						</div>

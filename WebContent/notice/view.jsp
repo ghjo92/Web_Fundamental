@@ -1,5 +1,26 @@
+<%@page import="kr.co.kic.dev1.dto.NoticeDto"%>
+<%@page import="kr.co.kic.dev1.dao.NoticeDao"%>
 <%@ page pageEncoding="UTF-8"%>
+<%
+	String tempNum = request.getParameter("num");
+	int num = 0;
+	try{
+		num = Integer.parseInt(tempNum);	
+	}catch(NumberFormatException e){
+		num = 0;	
+	}
+	NoticeDao dao = NoticeDao.getInstance();
+	NoticeDto dto = dao.select(num);
+	if(dto != null){
+		String writer = dto.getWriter();
+		String title = dto.getTitle();
+		String content = dto.getContent();
+		String regdate = dto.getRegdate();
+		
+%>
 <%@ include file="../inc/header.jsp" %>
+
+
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb justify-content-end">
 			<li class="breadcrumb-item"><a href="/">Home</a></li>
@@ -15,21 +36,21 @@
 
 						<form class="form-horizontal" role="form">
 							<div class="form-group row">
-								<label class="col-form-label col-sm-2" for="inputName">작성자</label>
+								<label class="col-form-label col-sm-2" for="writer">작성자</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" id="inputName" placeholder="이름을 입력해 주세요">
+									<input type="text" class="form-control" name="writer" value="<%=writer%>" id="writer" placeholder="작성자를 입력해 주세요">
 								</div>
 							</div>
 							<div class="form-group row">
-								<label class="col-form-label col-sm-2" for="inputName">제목</label>
+								<label class="col-form-label col-sm-2" for="title">제목</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" id="inputName" placeholder="이름을 입력해 주세요">
+									<input type="text" class="form-control" name="title" value="<%=title%>" id="title" placeholder="제목을 입력해 주세요">
 								</div>
 							</div>
 							<div class="form-group row">
-								<label class="col-form-label col-sm-2" for="inputName">제목</label>
+								<label class="col-form-label col-sm-2" for="content">내용</label>
 								<div class="col-sm-10">
-									<textarea class="form-control" id="inputName" placeholder="이름을 입력해 주세요"></textarea>
+									<textarea class="form-control" name="content" id="content" rows="10" placeholder="내용을 입력해 주세요"><%=content%></textarea>
 								</div>
 							</div>
 
@@ -55,3 +76,12 @@
 		</div>
 	</div>
 	<%@ include file="../inc/footer.jsp"%>
+	
+<%}else{%>
+	<script>
+		<%for(int i=0; i<3; i++){%>
+			alert("?");	
+		<%}%>
+		history.back(-1);
+	</script>
+<%}%>
