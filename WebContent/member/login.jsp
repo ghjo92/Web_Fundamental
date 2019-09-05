@@ -11,21 +11,45 @@
       <div class="col-sm-12">
         <div class="card">
           <div class="card-body">
+          <% if(memberDto == null){ %>
             <h5 class="card-title">로그인</h5>
-            <form>
+            <form name="f" method="post" action="check_login.jsp">            
               <div class="form-group">
-                <input type="text" class="form-control" placeholder="Your Email *" value="" />
+                <input type="email" id="eamil" name="email" class="form-control" placeholder="Your Email *" value="" />
               </div>
               <div class="form-group">
-                <input type="password" class="form-control" placeholder="Your Password *" value="" />
+                <input type="password" id="password" name="password"class="form-control" placeholder="Your Password *" value="" />
               </div>
               <div class="form-group">
-                <input type="submit" class="btn btn-primary" value="Login" />
+                <input type="submit" id="checkLogin" class="btn btn-primary" value="Login" />
               </div>
               <div class="form-group">
-                <a href="#" class="ForgetPwd">Forget Password?</a>
+                <a href="#" id="ForgetPwd" class="ForgetPwd">Forget Password?</a>
               </div>
             </form>
+            <script>
+            $(function(){
+            	$("#checkLogin").on("click", function(){
+            		event.preventDefault();
+            		if($("#email").val() ==""){
+           				elert("이메일을 입력하세요.");
+		           		$("#email").focus();
+        		   		return;
+           			}            		
+            		if($("#password").val() ==""){
+            			alert("비밀번호를 입력하세요.");
+            			$("#password").focus();
+        		   		return;
+            		}       
+            		f.submit();
+            	});
+            });
+            </script>
+            <%}else{%> 
+            	<h5 class=card-title>로그인을 하셧습니다.</h5>
+            <% }%>
+            
+            
           </div>
         </div>
       </div>

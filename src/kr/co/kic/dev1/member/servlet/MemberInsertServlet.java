@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
+import kr.co.kic.dev1.dao.MemberDao;
+
 /**
  * Servlet implementation class MemberInsertServlet
  */
@@ -65,6 +67,7 @@ public class MemberInsertServlet extends HttpServlet {
 			pstmt.setString(2, email);
 			pstmt.setString(3, password);
 			
+			MemberDao dao = MemberDao.getInstance();
 			pstmt.executeUpdate();
 			
 		} catch (SQLException e) {

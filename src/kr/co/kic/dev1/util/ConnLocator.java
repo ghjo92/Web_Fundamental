@@ -14,14 +14,14 @@ public class ConnLocator {
 		Connection con = null;
 		try {
 			Context context = new InitialContext();
-			//java:comp/env/ 고정
-			//jdbc/kic => context.xml의 name속성 값과 일치해야 한다.
+			//java:comp/env/ 怨좎젙
+			//jdbc/kic => context.xml�쓽 name�냽�꽦 媛믨낵 �씪移섑빐�빞 �븳�떎.
 			ds = (DataSource)context.lookup(
 					"java:comp/env/jdbc/kic");
-			//ds.getConnection()은  Connection Pool에 이미 만들어진
-			//Connection 객체를 가져온다. 
-			//다시말해서 이 시점에서 Connection 객체를 생성하는 것이 아니라
-			//이미 만들어진 Connection 객체를 사용하는 것이다.
+			//ds.getConnection()��  Connection Pool�뿉 �씠誘� 留뚮뱾�뼱吏�
+			//Connection 媛앹껜瑜� 媛��졇�삩�떎. 
+			//�떎�떆留먰빐�꽌 �씠 �떆�젏�뿉�꽌 Connection 媛앹껜瑜� �깮�꽦�븯�뒗 寃껋씠 �븘�땲�씪
+			//�씠誘� 留뚮뱾�뼱吏� Connection 媛앹껜瑜� �궗�슜�븯�뒗 寃껋씠�떎.
 			con = ds.getConnection();
 		} catch (NamingException e) {
 			// TODO Auto-generated catch block

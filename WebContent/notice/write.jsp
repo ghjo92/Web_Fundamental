@@ -1,11 +1,12 @@
 <%@ page pageEncoding="UTF-8"%>
 <%@ include file="../inc/header.jsp" %>
+<%if(memberDto != null){ %>
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb justify-content-end">
 			<li class="breadcrumb-item"><a href="/">Home</a></li>
 			<li class="breadcrumb-item active" aria-current="page">Notice</li>
 		</ol>
-	</nav>
+	</nav>	
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-12">
@@ -44,7 +45,7 @@
 						</form>
 
 						<div class="text-right">
-							<a href="http://www.naver.com" id="saveNotice" class="btn btn-outline-primary">등록</a>
+							<a href="" id="saveNotice" class="btn btn-outline-primary">등록</a>
 							<a href="list.jsp" class="btn btn-outline-success">리스트</a>
 						</div>
 						<script>
@@ -82,4 +83,10 @@
 
 		</div>
 	</div>
+	<%}else{ %>
+	<script>
+		alert('로그인하십쇼');
+		history.bakc(-1); 
+	</script>
+	<%} %>
 	<%@ include file="../inc/footer.jsp"%>

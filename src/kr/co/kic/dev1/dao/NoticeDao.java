@@ -41,7 +41,7 @@ public class NoticeDao {
 			pstmt.setString(index++, n.getWriter());
 			pstmt.setString(index++, n.getTitle());
 			pstmt.setString(index++, n.getContent());
-			pstmt.executeQuery();
+			pstmt.executeUpdate();
 			
 			isSuccess = true;
 			
@@ -81,7 +81,7 @@ public class NoticeDao {
 			pstmt.setString(index++, n.getContent());
 			pstmt.setInt(index++, n.getNum());
 			
-			pstmt.executeQuery();			
+			pstmt.executeUpdate();			
 			isSuccess = true;
 			
 		} catch (SQLException e) {
@@ -117,7 +117,7 @@ public class NoticeDao {
 			//바인딩 변수설정			
 			pstmt.setInt(index++, num);
 			
-			pstmt.executeQuery();			
+			pstmt.executeUpdate();			
 			isSuccess = true;
 			
 		} catch (SQLException e) {
