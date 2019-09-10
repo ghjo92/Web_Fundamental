@@ -173,11 +173,6 @@
 									
 								</ul>
 							</nav>
-
-							<div class="text-right">
-								<a href="register.jsp?page=<%=cPage %>" class="btn btn-outline-primary">등록</a>
-							</div>
-
 						</div>
 					</div>
 				</div>

@@ -45,11 +45,24 @@
 				<li class="nav-item">
 					<a class="nav-link" href="/member/list.jsp">Member</a>
 				</li>
-
+				<li class="nav-item">
+					<a class="nav-link" href="/file/index.jsp">File Upload</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/crawling/index.jsp">Crawling</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/qrcode/index.jsp">Qrcode</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/shorten/index.jsp">Shorten URL</a>
+				</li>
 			</ul>
 			<ul class="navbar-nav">
 				<li class="nav-item">
+				<%if(memberDto == null){ %>
 					<a class="nav-link" href="/member/register.jsp"><i class="fa fa-file-text-o"></i> Register</a>
+				<%} %>
 				</li>
 				<li class="nav-item">
 				<%if(memberDto == null) {%>

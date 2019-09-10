@@ -77,11 +77,7 @@
 										<a class="page-link" href="#">&raquo;</a>
 									</li>
 								</ul>
-							</nav>
-
-							<div class="text-right">
-								<a href="write.jsp" class="btn btn-outline-primary">부서등록</a>
-							</div>
+							</nav>	
 						</div>
 					</div>
 				</div>

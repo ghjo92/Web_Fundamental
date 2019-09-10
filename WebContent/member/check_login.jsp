@@ -22,6 +22,6 @@
 	<%}else{%>
 	<script>
 		alert("로그인정보가 잘못되었습니다.");
-		history.back(-1);
+		location.href = "login.jsp";
 	</script>
 <%}%>

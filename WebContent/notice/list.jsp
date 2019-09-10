@@ -2,40 +2,80 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="kr.co.kic.dev1.dao.NoticeDao"%>
 <%@ page pageEncoding="UTF-8"%>
-<%@ include file="../inc/header.jsp" %>
+<%@ include file="../inc/header.jsp"%>
 <%
-	NoticeDao dao = NoticeDao.getInstance();
-	ArrayList<NoticeDto> list = dao.select(0, 100);
+String tempPage = request.getParameter("page");
+System.out.println(tempPage);
+int cPage = 0;
+if(tempPage == null || tempPage.length()==0){
+	cPage = 1;
+}
+try{
+	cPage = Integer.parseInt(tempPage);
+}catch(NumberFormatException e){
+	cPage = 1;
+}
+int length = 10;
+int pageLength = 5;
+int totalPage = 0;
+int startPage = 0;
+int endPage = 0;
+int start = (cPage-1) * length;
+
+NoticeDao dao = NoticeDao.getInstance();
+ArrayList<NoticeDto> list = dao.select(start, length);
+
+int totalRows = dao.getRows();//63개
+
+totalPage = totalRows%length == 0 ? 
+			totalRows/length : totalRows/length + 1 ;
+if(totalPage == 0){
+	totalPage = 1;
+}
+
+int currentBlock = cPage % pageLength == 0 ?
+		cPage/pageLength : cPage/pageLength + 1;
+int totalBlock = totalPage % pageLength == 0 ?
+		totalPage/pageLength : totalPage/pageLength +1;
+
+startPage = 1 + (currentBlock - 1) * pageLength;
+
+endPage = pageLength + (currentBlock - 1) * pageLength;
+
+if(currentBlock == totalBlock){
+	endPage = totalPage;
+}
+
 %>
-	<nav aria-label="breadcrumb">
-		<ol class="breadcrumb justify-content-end">
-			<li class="breadcrumb-item"><a href="/">Home</a></li>
-			<li class="breadcrumb-item active" aria-current="page">Notice</li>
-		</ol>
-	</nav>
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-12">
-				<div class="card">
-					<div class="card-body">
-						<h5 class="card-title">게시판</h5>
-						<div class="table-responsive-md">
-							<table class="table table-hover">
-								<colgroup>
-									<col width="10%" />
-									<col width="10%" />
-									<col width="70%" />
-									<col width="10%" />
-								</colgroup>
-								<thead>
-									<tr>
-										<th scope="col">#</th>
-										<th scope="col">작성자</th>
-										<th scope="col">제목</th>
-										<th scope="col">등록날짜</th>									
-									</tr>
-								</thead>
-								<tbody>
+<nav aria-label="breadcrumb">
+	<ol class="breadcrumb justify-content-end">
+		<li class="breadcrumb-item"><a href="/">Home</a></li>
+		<li class="breadcrumb-item active" aria-current="page">Notice</li>
+	</ol>
+</nav>
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="card">
+				<div class="card-body">
+					<h5 class="card-title">게시판</h5>
+					<div class="table-responsive-md">
+						<table class="table table-hover">
+							<colgroup>
+								<col width="10%" />
+								<col width="10%" />
+								<col width="70%" />
+								<col width="10%" />
+							</colgroup>
+							<thead>
+								<tr>
+									<th scope="col">#</th>
+									<th scope="col">작성자</th>
+									<th scope="col">제목</th>
+									<th scope="col">등록날짜</th>
+								</tr>
+							</thead>
+							<tbody>
 								<%
 									if(list.size() != 0){
 										for(int i=0; i<list.size();i++){
@@ -46,56 +86,56 @@
 											String regdate = dto.getRegdate();
 										
 								%>
-									<tr>
-										<th scope="row"><%=num %></th>
-										<td><%=writer %></td>
-										<td><a href="view.jsp?num=<%=num %>"><%=title %></a> </td>
-										<td><%=regdate %></td>
-									</tr>
+								<tr>
+									<th scope="row"><%=num %></th>
+									<td><%=writer %></td>
+									<td><a href="view.jsp?num=<%=num %>"><%=title %></a></td>
+									<td><%=regdate %></td>
+								</tr>
 								<%
 										}
 									}else{
 										
 								%>
-									
-									<tr>
-										<td colspan="4" class="text-center">공지된 게시물이 존재하지 않습니다. </td>
-									</tr>
+
+								<tr>
+									<td colspan="4" class="text-center">공지된 게시물이 존재하지 않습니다.</td>
+								</tr>
 								<%} %>
-								
-								</tbody>
-							</table>
 
-							<nav aria-label="Page navigation example">
-								<ul class="pagination pagination-lg justify-content-center">
-									<li class="page-item disabled">
-										<a class="page-link" href="#" tabindex="-1">&laquo;</a>
-									</li>
-									<li class="page-item"><a class="page-link" href="#">1</a></li>
-									<li class="page-item"><a class="page-link" href="#">2</a></li>
-									<li class="page-item"><a class="page-link" href="#">3</a></li>
-									<li class="page-item"><a class="page-link" href="#">4</a></li>
-									<li class="page-item"><a class="page-link" href="#">5</a></li>
-									<li class="page-item"><a class="page-link" href="#">6</a></li>
-									<li class="page-item"><a class="page-link" href="#">7</a></li>
-									<li class="page-item"><a class="page-link" href="#">8</a></li>
-									<li class="page-item"><a class="page-link" href="#">9</a></li>
-									<li class="page-item"><a class="page-link" href="#">10</a></li>
-									<li class="page-item">
-										<a class="page-link" href="#">&raquo;</a>
-									</li>
-								</ul>
-							</nav>
+							</tbody>
+						</table>
 
-							<div class="text-right">
-								<a href="write.jsp" class="btn btn-outline-primary">등록</a>
-								<a href="#" class="btn btn-outline-success">리스트</a>
-							</div>
-						</div>
+						<nav aria-label="Page navigation example">
+							<ul class="pagination pagination-lg justify-content-center">
+								<%if(currentBlock != 1){ %>
+								<li class="page-item"><a class="page-link"
+									href="list.jsp?page=<%=startPage-1 %>" tabindex="-1">&laquo;</a>
+								</li>
+								<%}else{ %>
+								<li class="page-item disabled"><a class="page-link"
+									href="#" tabindex="-1">&laquo;</a></li>
+								<%} %>
+
+								<%for(int i=startPage;i<=endPage;i++){ %>
+								<li class="page-item <%if(cPage==i){ %>active<%}%>"><a
+									class="page-link" href="list.jsp?page=<%=cPage %>"><%=i %></a></li>
+								<%} %>
+								<%if(currentBlock != totalBlock){ %>
+								<li class="page-item"><a class="page-link"
+									href="list.jsp?page=<%=endPage+1 %>">&raquo;</a></li>
+								<%}else{ %>
+								<li class="page-item disabled"><a class="page-link"
+									href="#">&raquo;</a></li>
+								<%} %>
+
+							</ul>
+						</nav>
 					</div>
 				</div>
 			</div>
-
 		</div>
+
 	</div>
-	<%@ include file="../inc/footer.jsp"%>
+</div>
+<%@ include file="../inc/footer.jsp"%>

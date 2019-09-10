@@ -37,7 +37,7 @@
 							<div class="form-group row">
 								<label class="col-form-label col-sm-2" for="no">부서번호</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control"  value="<%=no %>" readonly placeholder="부서번호를 입력해 주세요">
+									<p><%=no %></p>
 									<div class="invalid-feedback">Please choose a username.</div>
 								</div>
 								
@@ -45,23 +45,21 @@
 							<div class="form-group row">
 								<label class="col-form-label col-sm-2" for="dname">부서이름</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" name="name" id="name" value="<%=name %>" placeholder="부서이름을 입력해 주세요">
+									<p><%=name %></p>
 								</div>
 								<div class="invalid-feedback">Please choose a username.</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-form-label col-sm-2" for="loc">부서위치</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" name="loc" id="loc" value="<%=loc %>" placeholder="부서위치 입력해 주세요">
+									<p><%=loc %></p>
 								</div>
 								<div class="invalid-feedback">Please choose a username.</div>
 							</div>
 							<input type="hidden" name="no" id="no" value="<%=no%>"/>
 						</form>
 
-						<div class="text-right">
-							<a href="" id="modifyDept" class="btn btn-outline-primary">수정</a>
-							<a href="" id="deleteDept" class="btn btn-outline-danger">삭제</a>
+						<div class="text-right">						
 							<a href="list.jsp" class="btn btn-outline-success">리스트</a>
 						</div>
 						<script>

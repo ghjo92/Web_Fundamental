@@ -15,10 +15,21 @@
             <h5 class="card-title">로그인</h5>
             <form name="f" method="post" action="check_login.jsp">            
               <div class="form-group">
-                <input type="email" id="eamil" name="email" class="form-control" placeholder="Your Email *" value="" />
+                <input type=email id="email" name="email" class="form-control" placeholder="Your Email *" value="" />
               </div>
               <div class="form-group">
                 <input type="password" id="password" name="password"class="form-control" placeholder="Your Password *" value="" />
+              </div>
+              <div class="form-row d-flex align-items-center">
+                      <div class="form-group col-md-8">
+                        <img class="form-control" src="" id="img_form_url"/>
+                      </div>
+                      <div class="form-group col-md-4">
+                        <a href="" id="refreshNumber" class="btn btn-info btn-lg btn-block"><i class="fa fa-refresh" aria-hidden="true"></i> REFRESH</a>
+                      </div>
+              </div>
+              <div class="form-group">
+                      <input type="text" name="captchaCode" id="captchaCode" class="form-control" placeholder="캡차코드를 입력하세요" value="" />
               </div>
               <div class="form-group">
                 <input type="submit" id="checkLogin" class="btn btn-primary" value="Login" />
@@ -29,27 +40,86 @@
             </form>
             <script>
             $(function(){
+            	let captchaKey ="";
+            	
             	$("#checkLogin").on("click", function(){
-            		event.preventDefault();
-            		if($("#email").val() ==""){
-           				elert("이메일을 입력하세요.");
+            		event.preventDefault();            		
+            		
+            		if($("#email").val() == ""){
+           				alert("이메일을 입력하세요.");
 		           		$("#email").focus();
         		   		return;
            			}            		
+            		
             		if($("#password").val() ==""){
             			alert("비밀번호를 입력하세요.");
             			$("#password").focus();
         		   		return;
             		}       
-            		f.submit();
+            		if($("#captchaCode").val() ==""){
+            			alert("캡차코드를 입력하세요.");
+            			$("#captchaCode").focus();
+        		   		return;
+            		}     
+            		$.ajax({
+            			type : 'GET',
+            			url : 'captcha/getKeyResult.jsp?key='+captchaKey+"&value="+$("#captchaCode").val(),
+            			datatype: 'jason',
+            			success : function(json){
+            				console.log(json);
+            				if(json.result == true){
+            					f.submit();
+            				}else{
+            					alert("캡차코드가 잘못되었습니다.");
+            					$("#captchaCode").focus();
+            					$("#captchaCode").val("");
+            					
+            				}            				
+            			}
+            			
+            			
+            		});
             	});
+            	
+            	$("#refreshNumber").on("click",function(e){
+            		e.preventDefault();
+            		loadImage();
+            	})
+            	
+            	
+            	
+            	
+                var loadImage = function(){            		
+                	$.ajax({
+                    	url : 'captcha/getKey.jsp',
+                    	type: 'GET',
+                    	dataType: 'json',
+                    	error : function(){
+                    		alert('Error loading JSON');
+                    	},
+                    	success : function(json){
+                    		captchaKey = json.key;
+                    		$.ajax({
+                    			type : 'GET',
+                    			url: 'captcha/getImage.jsp?key='+captchaKey,
+                    			xhrFields:{
+                    				responseType : 'blob'
+                    			},
+                    			success:function(data){
+                    				const url = window.URL || window.webketURL;
+                    				const src = url.createObjectURL(data);
+                    				$("#img_form_url").attr("src", src);
+                    			}
+                    		})
+                    	}	
+                 	});
+                }
+                loadImage();
             });
             </script>
             <%}else{%> 
-            	<h5 class=card-title>로그인을 하셧습니다.</h5>
-            <% }%>
-            
-            
+            	<h5 class=card-title>로그인 되었습니다.</h5>
+            <% }%>            
           </div>
         </div>
       </div>
